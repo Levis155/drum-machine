@@ -91,7 +91,6 @@ function App() {
 
   const playSound = (sound: Sound) => {
     if (!power) return;
-    console.log("Sound is being played!");
     const audio = document.getElementById(sound.key) as HTMLAudioElement;
     audio.currentTime = 0;
     audio.volume = volume;
@@ -123,16 +122,17 @@ function App() {
   };
   return (
     <div className="vh-100 d-flex justify-content-center align-items-center bg-dark-gray">
-      <div className="drum-machine d-flex">
+      <div className="drum-machine d-flex" id="drum-machine">
         <div className="buttons-container w-50 h-100 d-grid">
           {sounds.map((sound) => (
             <button
               key={sound.key}
+              className="drum-pad"
               id={sound.id}
               onClick={() => playSound(sound)}
             >
               {sound.key}
-              <audio id={sound.key} src={sound.url} preload="auto"></audio>
+              <audio id={sound.key} className="clip" src={sound.url} preload="auto"></audio>
             </button>
           ))}
         </div>
@@ -152,7 +152,7 @@ function App() {
             </label>
           </div>
 
-          <div className="display bg-medium-dark-gray d-flex justify-content-center">
+          <div className="display bg-medium-dark-gray d-flex justify-content-center" id="display">
             {display}
           </div>
 
@@ -178,10 +178,10 @@ function App() {
                 onClick={() => {
                   if (soundKit === "Heater") {
                     setSoundKit("Smooth Piano");
-                    setDisplay(soundKit);
+                    setDisplay("Smooth Piano");
                   } else {
                     setSoundKit("Heater");
-                    setDisplay(soundKit);
+                    setDisplay("Heater");
                   }
                 }}
               />
