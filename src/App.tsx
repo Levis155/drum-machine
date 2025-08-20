@@ -132,12 +132,7 @@ function App() {
               onClick={() => playSound(sound)}
             >
               {sound.key}
-              <audio
-                id={sound.key}
-                className="clip"
-                src={sound.url}
-                preload="auto"
-              ></audio>
+              <audio id={sound.key} src={sound.url} preload="auto"></audio>
             </button>
           ))}
         </div>
@@ -146,7 +141,13 @@ function App() {
           <div className="switch-container">
             <span>power</span>
             <label className="power-switch">
-              <input type="checkbox" onClick={() => setPower(!power)} />
+              <input
+                type="checkbox"
+                onClick={() => {
+                  setPower(!power);
+                  setDisplay("");
+                }}
+              />
               <span className="slider"></span>
             </label>
           </div>
@@ -173,11 +174,14 @@ function App() {
             <label className="bank-switch">
               <input
                 type="checkbox"
+                disabled={!power}
                 onClick={() => {
                   if (soundKit === "Heater") {
                     setSoundKit("Smooth Piano");
+                    setDisplay(soundKit);
                   } else {
                     setSoundKit("Heater");
+                    setDisplay(soundKit);
                   }
                 }}
               />
